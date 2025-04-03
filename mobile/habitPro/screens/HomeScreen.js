@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
 
   const fetchHabits = async (authToken) => {
     try {
-      const response = await axios.get('http://10.19.14.105:8000/api/items/', {
+      const response = await axios.get('http://10.19.14.113:8000/api/items/', {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -48,7 +48,7 @@ export default function HomeScreen({ navigation }) {
         return;
       }
 
-      const response = await axios.delete(`http://10.19.14.105:8000/api/items/${id}/`, {
+      const response = await axios.delete(`http://10.19.14.113:8000/api/items/${id}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -72,7 +72,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <TouchableOpacity onPress={() => navigation.navigate('Achievements')} style={styles.badgeIcon}>
+        <TouchableOpacity onPress={() => navigation.navigate('Achievements')} style={styles.badgeIcon}>
           <MaterialIcons name="emoji-events" size={24} color="white" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Bem-vindo!</Text>
@@ -95,18 +95,21 @@ export default function HomeScreen({ navigation }) {
             data={habits}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <View>
-                <Text style={styles.activityItem}>
+              <View style={styles.activityItem}>
+                <Text style={styles.activityText}>
                   • {item.name}
                 </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('HabitDetail', {habitId: item.id})}>
-                  <FontAwesome name="edit" size={20} color="blue" style={{ marginRight: 10 }} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => deleteHabit(item.id)}>
-                  <FontAwesome name="trash" size={20} color="red" />
-                </TouchableOpacity>
+                <View style={styles.iconGroup}>
+                  <TouchableOpacity onPress={() => navigation.navigate('HabitDetail', { habitId: item.id })}>
+                    <FontAwesome name="edit" size={30} color="green" style={styles.editIcon} />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => deleteHabit(item.id)}>
+                    <FontAwesome name="trash" size={32} color="#FF4500" style={styles.deleteIcon} />
+                  </TouchableOpacity>
+                </View>
               </View>
-            )} />
+            )}
+          />
         )}
         <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('Add')}>
           <Text style={styles.addButtonText}>Adicionar Hábito</Text>
@@ -172,16 +175,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   activitySection: {
-    backgroundColor: 'white',
+    backgroundColor: '#f5f5f5',
     flex: 1,
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
   },
   activityTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#333',
   },
   loadingText: {
     fontSize: 16,
@@ -190,9 +199,36 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   activityItem: {
-    fontSize: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 8,
     marginVertical: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+    fontSize:15,
+  },
+  activityText: {
+    fontSize: 16,
     color: '#333',
+    flex: 1,
+  },
+  iconGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  editIcon: {
+    marginHorizontal: 10,
+    paddingTop:5
+  },
+  deleteIcon: {
+    marginHorizontal: 10,
+
   },
   addButton: {
     backgroundColor: '#333',

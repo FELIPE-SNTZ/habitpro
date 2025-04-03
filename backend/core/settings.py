@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-+o6ts6+9sw+23xahz)9l!a7h1f=#e1whfw(3^n4wouc_b3bkz8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", '10.19.14.105', '192.168.0.167']
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", '10.19.14.105', '192.168.0.167','10.19.14.113']
 
 
 # Application definition
@@ -67,6 +68,14 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+SIMPLE_JWT ={
+    "ACCESS_TOKEN_LIFETIME":timedelta(hours=1),
+    "REFRESH_TOKEN_LIFETIME":timedelta(hours=1)
+    
+}
+
+
 
 ROOT_URLCONF = 'core.urls'
 

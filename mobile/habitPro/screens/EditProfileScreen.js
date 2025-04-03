@@ -101,7 +101,7 @@ export default function EditProfileScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        backgroundColor: '#f8f9fa',
+        backgroundColor: '#111',
         paddingTop: 90,
         paddingHorizontal: 20, 
     },
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 32, 
         fontWeight: 'bold',
-        color: '#333',
+        color: '#fff',
         textAlign: 'center',
     },
     card: {
